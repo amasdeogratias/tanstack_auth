@@ -6,15 +6,15 @@ export const Route = createFileRoute('/(auth)/register')({
 
 function RouteComponent() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[var(--page-bg)] px-4">
-      <div className="w-full max-w-md rounded-2xl border border-[var(--line)] bg-[var(--card-bg)] p-8 shadow-sm">
+    <div className="min-h-screen flex items-center justify-center bg-(--page-bg) px-4">
+      <div className="w-full max-w-md rounded-2xl border border-(--line) bg-(--card-bg) p-8 shadow-sm">
         
         {/* Header */}
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">
             Create your account
           </h1>
-          <p className="mt-2 text-sm text-[var(--sea-ink-soft)]">
+          <p className="mt-2 text-sm text-(--sea-ink-soft)">
             Join us and start your journey today.
           </p>
         </div>
@@ -33,7 +33,7 @@ function RouteComponent() {
               name="name"
               placeholder="John Doe"
               required
-              className="h-11 rounded-lg border border-[var(--line)] bg-[var(--input-bg)] px-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+              className="h-11 rounded-lg border border-(--line) bg-(--input-bg) px-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
 
@@ -48,7 +48,7 @@ function RouteComponent() {
               name="email"
               placeholder="you@example.com"
               required
-              className="h-11 rounded-lg border border-[var(--line)] bg-[var(--input-bg)] px-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+              className="h-11 rounded-lg border border-(--line) bg-(--input-bg) px-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
 
@@ -63,9 +63,9 @@ function RouteComponent() {
               name="password"
               placeholder="••••••••"
               required
-              className="h-11 rounded-lg border border-[var(--line)] bg-[var(--input-bg)] px-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+              className="h-11 rounded-lg border border-(--line) bg-(--input-bg) px-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
             />
-            <p className="text-xs text-[var(--sea-ink-soft)]">
+            <p className="text-xs text-(--sea-ink-soft)">
               Must be at least 8 characters.
             </p>
           </div>
@@ -81,7 +81,7 @@ function RouteComponent() {
               name="confirmPassword"
               placeholder="••••••••"
               required
-              className="h-11 rounded-lg border border-[var(--line)] bg-[var(--input-bg)] px-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+              className="h-11 rounded-lg border border-(--line) bg-(--input-bg) px-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
 
@@ -95,7 +95,7 @@ function RouteComponent() {
         </form>
 
         {/* Footer */}
-        <p className="mt-6 text-center text-sm text-[var(--sea-ink-soft)]">
+        <p className="mt-6 text-center text-sm text-(--sea-ink-soft)">
           Already have an account?{' '}
           <Link
             to="/login"
