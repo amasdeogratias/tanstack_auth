@@ -45,19 +45,17 @@ function BlogPost() {
   return (
     <main className="page-wrap px-4 pb-12 pt-16">
       <article className="island-shell rounded-2xl p-6 sm:p-8">
-        {post.heroImage ? (
           <img
-            src={post.heroImage}
+            src=""
             alt=""
             className="mb-6 h-64 w-full rounded-2xl object-cover"
           />
-        ) : null}
         <p className="island-kicker mb-2">Post</p>
         <h1 className="display-title mb-3 text-4xl font-bold text-[var(--sea-ink)] sm:text-5xl">
-          {post.title}
+          Tourism
         </h1>
         <p className="mb-6 text-sm text-[var(--sea-ink-soft)]">
-          {new Date(post.pubDate).toLocaleDateString()}
+          December 2025
         </p>
         <div className="prose prose-slate prose-headings:text-[var(--sea-ink)] prose-p:text-[var(--sea-ink-soft)] prose-li:text-[var(--sea-ink-soft)] prose-ul:text-[var(--sea-ink-soft)] prose-ol:text-[var(--sea-ink-soft)] prose-strong:text-[var(--sea-ink)] prose-a:text-[var(--lagoon-deep)] max-w-none">
           {post.mdx ? (

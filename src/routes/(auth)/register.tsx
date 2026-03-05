@@ -1,30 +1,67 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import {
+  createFileRoute,
+  Link,
+  useNavigate,
+} from "@tanstack/react-router";
+import { useState } from "react";
+import { registerUser } from "#/hooks/registerUser";
 
-export const Route = createFileRoute('/(auth)/register')({
+export const Route = createFileRoute("/(auth)/register")({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name")?.toString().trim() ?? "";
+    const email = formData.get("email")?.toString().trim() ?? "";
+    const password = formData.get("password")?.toString().trim() ?? "";
+
+    try {
+      const res = await registerUser({
+        data: { name, email, password },
+      });
+
+      console.log("Register response:", res);
+
+      if (res.success) {
+        navigate({ to: "/login" });
+      }
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
   return (
-    <div className="min-h-screen flex items-center justify-center bg-(--page-bg) px-4">
-      <div className="w-full max-w-md rounded-2xl border border-(--line) bg-(--card-bg) p-8 shadow-sm">
-        
+    <div className="flex min-h-screen items-center justify-center bg-(--bg-subtle) px-4">
+      <div className="w-full max-w-md rounded-2xl border border-(--line) bg-(--bg) p-8 shadow-lg">
         {/* Header */}
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">
-            Create your account
+            Create an Account
           </h1>
           <p className="mt-2 text-sm text-(--sea-ink-soft)">
-            Join us and start your journey today.
+            Enter your details below to get started.
           </p>
         </div>
+        {/* Error Message */}
+        {error && (
+          <div className="mb-4 rounded-md bg-red-100 p-4 text-sm text-red-700">
+            {error}
+          </div>
+        )}
 
         {/* Form */}
-        <form action="/register" method="post" className="space-y-5">
-          
+        <form className="space-y-5" onSubmit={handleSubmit}>
           {/* Name */}
-          <div className="flex flex-col gap-1.5">
-            <label htmlFor="name" className="text-sm font-medium">
+          <div className="space-y-2">
+            <label
+              htmlFor="name"
+              className="text-sm font-medium text-(--sea-ink)"
+            >
               Full Name
             </label>
             <input
@@ -32,14 +69,20 @@ function RouteComponent() {
               id="name"
               name="name"
               placeholder="John Doe"
-              required
-              className="h-11 rounded-lg border border-(--line) bg-(--input-bg) px-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+              className="w-full rounded-lg border border-(--line) bg-(--bg) px-4 py-2.5 text-sm outline-none transition focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20"
+              onChange={(e) => {
+                e.target.value;
+              }}
+              //   required
             />
           </div>
 
           {/* Email */}
-          <div className="flex flex-col gap-1.5">
-            <label htmlFor="email" className="text-sm font-medium">
+          <div className="space-y-2">
+            <label
+              htmlFor="email"
+              className="text-sm font-medium text-(--sea-ink)"
+            >
               Email Address
             </label>
             <input
@@ -47,14 +90,20 @@ function RouteComponent() {
               id="email"
               name="email"
               placeholder="you@example.com"
+              className="w-full rounded-lg border border-(--line) bg-(--bg) px-4 py-2.5 text-sm outline-none transition focus:border-(--primary) focus:ring-2 focus:ring-(--primary)/20"
+              onChange={(e) => {
+                e.target.value;
+              }}
               required
-              className="h-11 rounded-lg border border-(--line) bg-(--input-bg) px-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
 
           {/* Password */}
-          <div className="flex flex-col gap-1.5">
-            <label htmlFor="password" className="text-sm font-medium">
+          <div className="space-y-2">
+            <label
+              htmlFor="password"
+              className="text-sm font-medium text-(--sea-ink)"
+            >
               Password
             </label>
             <input
@@ -62,49 +111,34 @@ function RouteComponent() {
               id="password"
               name="password"
               placeholder="••••••••"
+              className="w-full rounded-lg border border-(--line) bg-(--bg) px-4 py-2.5 text-sm outline-none transition focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20"
+              onChange={(e) => {
+                e.target.value;
+              }}
               required
-              className="h-11 rounded-lg border border-(--line) bg-(--input-bg) px-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-            />
-            <p className="text-xs text-(--sea-ink-soft)">
-              Must be at least 8 characters.
-            </p>
-          </div>
-
-          {/* Confirm Password */}
-          <div className="flex flex-col gap-1.5">
-            <label htmlFor="confirmPassword" className="text-sm font-medium">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              placeholder="••••••••"
-              required
-              className="h-11 rounded-lg border border-(--line) bg-(--input-bg) px-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
 
           {/* Submit */}
           <button
             type="submit"
-            className="h-11 w-full rounded-lg bg-blue-600 text-sm font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+            className="w-full rounded-lg bg-(--primary) py-2.5 text-sm font-medium text-white transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/40 cursor-pointer"
           >
-            Create Account
+            Save
           </button>
         </form>
 
         {/* Footer */}
         <p className="mt-6 text-center text-sm text-(--sea-ink-soft)">
-          Already have an account?{' '}
+          Already have an account?{" "}
           <Link
             to="/login"
-            className="font-medium text-blue-600 hover:text-blue-700"
+            className="font-medium text-(--primary) hover:underline"
           >
-            Log in
+            Sign in
           </Link>
         </p>
       </div>
     </div>
-  )
+  );
 }
