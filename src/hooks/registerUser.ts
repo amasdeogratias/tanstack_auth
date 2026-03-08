@@ -5,13 +5,8 @@ import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
 import { z } from "zod";
-// import type { TUser } from "types/types";
+import type { TUser } from "types/types";
 
-export type TUser = {
-    name?: string
-    email?: string
-    password?: string
-}
 
 const RegisterSchema = z.object({
   name: z.string().min(3, "Name must be at least 3 characters long"),
