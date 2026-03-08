@@ -1,31 +1,42 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { useState } from 'react'
+import { loginUser } from "#/server/loginUser";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 
-export const Route = createFileRoute('/(auth)/login')({
+export const Route = createFileRoute("/(auth)/login")({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    const email = formData.get('email')?.toString().trim()
-    const password = formData.get('password')?.toString().trim()
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email")?.toString().trim() ?? "";
+    const password = formData.get("password")?.toString().trim() ?? "";
 
-    if (!email || !password) {
-      setError('Both email and password are required.')
-      return
+    try {
+      const res = await loginUser({
+        data: { email, password },
+      });
+      if (res.success) {
+        // Handle successful login, e.g., redirect to dashboard
+        navigate({ to: "/" });
+      }
+    } catch (error) {
+      setError(
+        error instanceof Error ? error.message : "An unexpected error occurred",
+      );
     }
-  }
+  };
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--bg-subtle)] px-4">
-      <div className="w-full max-w-md rounded-2xl border border-[var(--line)] bg-[var(--bg)] p-8 shadow-lg">
+    <div className="flex min-h-screen items-center justify-center bg-(--bg-subtle) px-4">
+      <div className="w-full max-w-md rounded-2xl border border-(--line) bg-[var(--bg)] p-8 shadow-lg">
         {/* Header */}
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">Login</h1>
-          <p className="mt-2 text-sm text-[var(--sea-ink-soft)]">
+          <p className="mt-2 text-sm text-(--sea-ink-soft)">
             Enter your details below to get started.
           </p>
         </div>
@@ -53,7 +64,7 @@ function RouteComponent() {
               placeholder="you@example.com"
               className="w-full rounded-lg border border-[var(--line)] bg-[var(--bg)] px-4 py-2.5 text-sm outline-none transition focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20"
               onChange={(e) => {
-                e.target.value
+                e.target.value;
               }}
             />
           </div>
@@ -73,7 +84,7 @@ function RouteComponent() {
               placeholder="••••••••"
               className="w-full rounded-lg border border-[var(--line)] bg-[var(--bg)] px-4 py-2.5 text-sm outline-none transition focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20"
               onChange={(e) => {
-                e.target.value
+                e.target.value;
               }}
             />
           </div>
@@ -89,7 +100,7 @@ function RouteComponent() {
 
         {/* Footer */}
         <p className="mt-6 text-center text-sm text-[var(--sea-ink-soft)]">
-          Don't have an account?{' '}
+          Don't have an account?{" "}
           <Link
             to="/register"
             className="font-medium text-[var(--primary)] hover:underline"
@@ -99,5 +110,5 @@ function RouteComponent() {
         </p>
       </div>
     </div>
-  )
+  );
 }

@@ -1,10 +1,6 @@
-import {
-  createFileRoute,
-  Link,
-  useNavigate,
-} from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { registerUser } from "#/hooks/registerUser";
+import { registerUser } from "#/server/registerUser";
 
 export const Route = createFileRoute("/(auth)/register")({
   component: RouteComponent,
