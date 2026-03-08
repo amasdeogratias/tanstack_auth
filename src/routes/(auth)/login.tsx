@@ -20,9 +20,9 @@ function RouteComponent() {
       const res = await loginUser({
         data: { email, password },
       });
-      if (res.success) {
+      if (res) {
         // Handle successful login, e.g., redirect to dashboard
-        navigate({ to: "/" });
+        navigate({ to: "/blog" });
       }
     } catch (error) {
       setError(

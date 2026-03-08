@@ -1,4 +1,4 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute, redirect } from "@tanstack/react-router";
 import { allBlogs } from "content-collections";
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "#/lib/site";
 
@@ -6,6 +6,11 @@ const canonical = `${SITE_URL}/blog`;
 const pageTitle = `Blog | ${SITE_TITLE}`;
 
 export const Route = createFileRoute("/blog/")({
+  beforeLoad: async ({context}) => {
+    if(!context.user) {
+      throw redirect({ to: "/login" })
+    }
+  },
   head: () => ({
     links: [{ rel: "canonical", href: canonical }],
     meta: [

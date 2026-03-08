@@ -4,6 +4,7 @@ import { users } from "#/database/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
+import { createSession } from "#/utils/session";
 
 export interface LoginUserResponse {
   success: boolean;
@@ -17,7 +18,7 @@ const LoginSchema = z.object({
 
 export const loginUser = createServerFn({ method: "POST" })
     .inputValidator(LoginSchema)
-    .handler(async ({ data }: { data: { email: string; password: string } }): Promise<LoginUserResponse> => {
+    .handler(async ({ data }: { data: { email: string; password: string } }) => {
         const { email, password } = data;
         // Implementation for user login logic
         // 1. Check if user exists
@@ -36,5 +37,12 @@ export const loginUser = createServerFn({ method: "POST" })
             throw new Error("Invalid email or password");
         }
 
-        return { success: true, message: "Login successful" };
+        // Create session
+        const cookie = await createSession(user[0].id)
+
+        return new Response(JSON.stringify(user), {
+        headers: {
+            'Set-Cookie': cookie,
+        },
+        })
     });
