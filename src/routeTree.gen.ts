@@ -8,170 +8,170 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as RssDotxmlRouteImport } from "./routes/rss[.]xml";
-import { Route as IndexRouteImport } from "./routes/index";
-import { Route as BlogIndexRouteImport } from "./routes/blog/index";
-import { Route as AboutIndexRouteImport } from "./routes/about/index";
-import { Route as BlogSlugRouteImport } from "./routes/blog/$slug";
-import { Route as authRegisterRouteImport } from "./routes/(auth)/register";
-import { Route as authLoginRouteImport } from "./routes/(auth)/login";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as AboutIndexRouteImport } from './routes/about/index'
+import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as authRegisterRouteImport } from './routes/(auth)/register'
+import { Route as authLoginRouteImport } from './routes/(auth)/login'
 
 const RssDotxmlRoute = RssDotxmlRouteImport.update({
-  id: "/rss.xml",
-  path: "/rss.xml",
+  id: '/rss.xml',
+  path: '/rss.xml',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
-  id: "/blog/",
-  path: "/blog/",
+  id: '/blog/',
+  path: '/blog/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AboutIndexRoute = AboutIndexRouteImport.update({
-  id: "/about/",
-  path: "/about/",
+  id: '/about/',
+  path: '/about/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: "/blog/$slug",
-  path: "/blog/$slug",
+  id: '/blog/$slug',
+  path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const authRegisterRoute = authRegisterRouteImport.update({
-  id: "/(auth)/register",
-  path: "/register",
+  id: '/(auth)/register',
+  path: '/register',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const authLoginRoute = authLoginRouteImport.update({
-  id: "/(auth)/login",
-  path: "/login",
+  id: '/(auth)/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/rss.xml": typeof RssDotxmlRoute;
-  "/login": typeof authLoginRoute;
-  "/register": typeof authRegisterRoute;
-  "/blog/$slug": typeof BlogSlugRoute;
-  "/about/": typeof AboutIndexRoute;
-  "/blog/": typeof BlogIndexRoute;
+  '/': typeof IndexRoute
+  '/rss.xml': typeof RssDotxmlRoute
+  '/login': typeof authLoginRoute
+  '/register': typeof authRegisterRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/about/': typeof AboutIndexRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/rss.xml": typeof RssDotxmlRoute;
-  "/login": typeof authLoginRoute;
-  "/register": typeof authRegisterRoute;
-  "/blog/$slug": typeof BlogSlugRoute;
-  "/about": typeof AboutIndexRoute;
-  "/blog": typeof BlogIndexRoute;
+  '/': typeof IndexRoute
+  '/rss.xml': typeof RssDotxmlRoute
+  '/login': typeof authLoginRoute
+  '/register': typeof authRegisterRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/about': typeof AboutIndexRoute
+  '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/": typeof IndexRoute;
-  "/rss.xml": typeof RssDotxmlRoute;
-  "/(auth)/login": typeof authLoginRoute;
-  "/(auth)/register": typeof authRegisterRoute;
-  "/blog/$slug": typeof BlogSlugRoute;
-  "/about/": typeof AboutIndexRoute;
-  "/blog/": typeof BlogIndexRoute;
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/rss.xml': typeof RssDotxmlRoute
+  '/(auth)/login': typeof authLoginRoute
+  '/(auth)/register': typeof authRegisterRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/about/': typeof AboutIndexRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | "/"
-    | "/rss.xml"
-    | "/login"
-    | "/register"
-    | "/blog/$slug"
-    | "/about/"
-    | "/blog/";
-  fileRoutesByTo: FileRoutesByTo;
+    | '/'
+    | '/rss.xml'
+    | '/login'
+    | '/register'
+    | '/blog/$slug'
+    | '/about/'
+    | '/blog/'
+  fileRoutesByTo: FileRoutesByTo
   to:
-    | "/"
-    | "/rss.xml"
-    | "/login"
-    | "/register"
-    | "/blog/$slug"
-    | "/about"
-    | "/blog";
+    | '/'
+    | '/rss.xml'
+    | '/login'
+    | '/register'
+    | '/blog/$slug'
+    | '/about'
+    | '/blog'
   id:
-    | "__root__"
-    | "/"
-    | "/rss.xml"
-    | "/(auth)/login"
-    | "/(auth)/register"
-    | "/blog/$slug"
-    | "/about/"
-    | "/blog/";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/'
+    | '/rss.xml'
+    | '/(auth)/login'
+    | '/(auth)/register'
+    | '/blog/$slug'
+    | '/about/'
+    | '/blog/'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  RssDotxmlRoute: typeof RssDotxmlRoute;
-  authLoginRoute: typeof authLoginRoute;
-  authRegisterRoute: typeof authRegisterRoute;
-  BlogSlugRoute: typeof BlogSlugRoute;
-  AboutIndexRoute: typeof AboutIndexRoute;
-  BlogIndexRoute: typeof BlogIndexRoute;
+  IndexRoute: typeof IndexRoute
+  RssDotxmlRoute: typeof RssDotxmlRoute
+  authLoginRoute: typeof authLoginRoute
+  authRegisterRoute: typeof authRegisterRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  AboutIndexRoute: typeof AboutIndexRoute
+  BlogIndexRoute: typeof BlogIndexRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/rss.xml": {
-      id: "/rss.xml";
-      path: "/rss.xml";
-      fullPath: "/rss.xml";
-      preLoaderRoute: typeof RssDotxmlRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/blog/": {
-      id: "/blog/";
-      path: "/blog";
-      fullPath: "/blog/";
-      preLoaderRoute: typeof BlogIndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/about/": {
-      id: "/about/";
-      path: "/about";
-      fullPath: "/about/";
-      preLoaderRoute: typeof AboutIndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/blog/$slug": {
-      id: "/blog/$slug";
-      path: "/blog/$slug";
-      fullPath: "/blog/$slug";
-      preLoaderRoute: typeof BlogSlugRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/(auth)/register": {
-      id: "/(auth)/register";
-      path: "/register";
-      fullPath: "/register";
-      preLoaderRoute: typeof authRegisterRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/(auth)/login": {
-      id: "/(auth)/login";
-      path: "/login";
-      fullPath: "/login";
-      preLoaderRoute: typeof authLoginRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+    '/rss.xml': {
+      id: '/rss.xml'
+      path: '/rss.xml'
+      fullPath: '/rss.xml'
+      preLoaderRoute: typeof RssDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about/': {
+      id: '/about/'
+      path: '/about'
+      fullPath: '/about/'
+      preLoaderRoute: typeof AboutIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(auth)/register': {
+      id: '/(auth)/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof authRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(auth)/login': {
+      id: '/(auth)/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof authLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -183,16 +183,16 @@ const rootRouteChildren: RootRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
   AboutIndexRoute: AboutIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
-import type { getRouter } from "./router.tsx";
-import type { createStart } from "@tanstack/react-start";
-declare module "@tanstack/react-start" {
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true;
-    router: Awaited<ReturnType<typeof getRouter>>;
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
   }
 }
