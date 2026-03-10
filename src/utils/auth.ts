@@ -1,9 +1,10 @@
 import { db } from "#/database";
 import { users } from "#/database/schema";
-import { getSession } from "./session";
+import { destroySession, getSession } from "./session";
 import { eq } from "drizzle-orm";
 import { createServerFn } from "@tanstack/react-start";
 import { getRequestHeaders } from "@tanstack/react-start/server";
+import { log } from "console";
 
 export const getCurrentUserFn = createServerFn({ method: "GET" }).handler(
   async () => {
@@ -24,3 +25,13 @@ export const getCurrentUserFn = createServerFn({ method: "GET" }).handler(
     return user;
   },
 );
+
+export const logoutFn = createServerFn({ method: "POST" }).handler(async () => {
+  try {
+    const headers = getRequestHeaders();
+    const cookie = headers.get("cookie");
+    await destroySession(cookie);
+  } catch (error) {
+    log("Error during logout:", error);
+  }
+});

@@ -55,8 +55,8 @@ export async function getSession(cookie: string | null) {
   return session;
 }
 
-export async function destroySession(request: Request) {
-  const cookies = parse(request.headers.get("cookie") || "");
+export async function destroySession(cookieHeader: string | null) {
+  const cookies = parse(cookieHeader || "");
   const token = cookies[SESSION_COOKIE];
 
   if (token) {

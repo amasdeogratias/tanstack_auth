@@ -1,8 +1,16 @@
-import { Link, useRouteContext } from "@tanstack/react-router";
+import { Link, useNavigate, useRouteContext } from "@tanstack/react-router";
 import ThemeToggle from "./ThemeToggle";
+import { LogOut } from "lucide-react";
+import { logoutFn } from "#/utils/auth";
 
 export default function Header() {
-  const { user } = useRouteContext({from: "__root__"});
+  const { user } = useRouteContext({ from: "__root__" });
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logoutFn();
+    navigate({ to: "/login" });
+  };
   return (
     <header className="sticky top-0 z-50 border-b border-(--line) bg-(--header-bg) px-4 backdrop-blur-lg">
       <nav className="page-wrap flex flex-wrap items-center gap-x-3 gap-y-2 py-3 sm:py-4">
@@ -80,22 +88,30 @@ export default function Header() {
             Docs
           </a>
           {user ? (
+            <>
+              <Link
+                to="/profile"
+                className="nav-link"
+                activeProps={{ className: "nav-link is-active" }}
+              >
+                {user.name}
+              </Link>
+              <button
+                className="flex items-center gap-1.5 cursor-pointer"
+                onClick={handleLogout}
+              >
+                <LogOut />
+                logout
+              </button>
+            </>
+          ) : (
             <Link
-              to="/profile"
+              to="/login"
               className="nav-link"
               activeProps={{ className: "nav-link is-active" }}
             >
-              {user.name}
+              Login or Register
             </Link>
-          ) : (
-            
-          <Link
-            to="/login"
-            className="nav-link"
-            activeProps={{ className: "nav-link is-active" }}
-          >
-            Login or Register
-          </Link>
           )}
         </div>
       </nav>
