@@ -1,8 +1,8 @@
 ---
-title: 'Paper Lantern Cache'
-description: 'How to shape navigation and page structure.'
-pubDate: 'Jul 15 2024'
-heroImage: '/images/lagoon-4.svg'
+title: "Paper Lantern Cache"
+description: "How to shape navigation and page structure."
+pubDate: "Jul 15 2024"
+heroImage: "/images/lagoon-4.svg"
 ---
 
 Use file-based routes in `src/routes` to grow the app.
@@ -22,16 +22,16 @@ hurt less.
 
 ```tsx
 // src/routes/billing.index.tsx
-export const Route = createFileRoute('/billing/')({
+export const Route = createFileRoute("/billing/")({
   component: BillingPage,
-})
+});
 ```
 
 <MdxMetrics
   items={[
-    { label: 'Route setup', value: '~10 min' },
-    { label: 'Type safety', value: 'end-to-end' },
-    { label: 'Refactor risk', value: 'lowered' },
+    { label: "Route setup", value: "~10 min" },
+    { label: "Type safety", value: "end-to-end" },
+    { label: "Refactor risk", value: "lowered" },
   ]}
 />
 

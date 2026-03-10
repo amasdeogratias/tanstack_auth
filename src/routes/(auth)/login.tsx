@@ -32,7 +32,7 @@ function RouteComponent() {
   };
   return (
     <div className="flex min-h-screen items-center justify-center bg-(--bg-subtle) px-4">
-      <div className="w-full max-w-md rounded-2xl border border-(--line) bg-[var(--bg)] p-8 shadow-lg">
+      <div className="w-full max-w-md rounded-2xl border border-(--line) bg-(--bg) p-8 shadow-lg">
         {/* Header */}
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">Login</h1>
@@ -53,7 +53,7 @@ function RouteComponent() {
           <div className="space-y-2">
             <label
               htmlFor="email"
-              className="text-sm font-medium text-[var(--sea-ink)]"
+              className="text-sm font-medium text-(--sea-ink)"
             >
               Email Address
             </label>
@@ -62,7 +62,7 @@ function RouteComponent() {
               id="email"
               name="email"
               placeholder="you@example.com"
-              className="w-full rounded-lg border border-[var(--line)] bg-[var(--bg)] px-4 py-2.5 text-sm outline-none transition focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20"
+              className="w-full rounded-lg border border-(--line) bg-(--bg) px-4 py-2.5 text-sm outline-none transition focus:border-(--primary) focus:ring-2 focus:ring-(--primary)/20"
               onChange={(e) => {
                 e.target.value;
               }}
@@ -73,7 +73,7 @@ function RouteComponent() {
           <div className="space-y-2">
             <label
               htmlFor="password"
-              className="text-sm font-medium text-[var(--sea-ink)]"
+              className="text-sm font-medium text-(--sea-ink)"
             >
               Password
             </label>
@@ -82,7 +82,7 @@ function RouteComponent() {
               id="password"
               name="password"
               placeholder="••••••••"
-              className="w-full rounded-lg border border-[var(--line)] bg-[var(--bg)] px-4 py-2.5 text-sm outline-none transition focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20"
+              className="w-full rounded-lg border border-(--line) bg-(--bg) px-4 py-2.5 text-sm outline-none transition focus:border-(--primary) focus:ring-2 focus:ring-(--primary)/20"
               onChange={(e) => {
                 e.target.value;
               }}
@@ -92,18 +92,18 @@ function RouteComponent() {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full rounded-lg bg-[var(--primary)] py-2.5 text-sm font-medium text-white transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/40 cursor-pointer"
+            className="w-full rounded-lg bg-(--primary) py-2.5 text-sm font-medium text-white transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-(--primary)/40 cursor-pointer"
           >
             Login
           </button>
         </form>
 
         {/* Footer */}
-        <p className="mt-6 text-center text-sm text-[var(--sea-ink-soft)]">
+        <p className="mt-6 text-center text-sm text-(--sea-ink-soft)">
           Don't have an account?{" "}
           <Link
             to="/register"
-            className="font-medium text-[var(--primary)] hover:underline"
+            className="font-medium text-(--primary) hover:underline"
           >
             Sign up
           </Link>

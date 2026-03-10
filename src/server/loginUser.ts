@@ -17,32 +17,32 @@ const LoginSchema = z.object({
 });
 
 export const loginUser = createServerFn({ method: "POST" })
-    .inputValidator(LoginSchema)
-    .handler(async ({ data }: { data: { email: string; password: string } }) => {
-        const { email, password } = data;
-        // Implementation for user login logic
-        // 1. Check if user exists
-        const user = await db
-            .select()
-            .from(users)
-            .where(eq(users.email, email))
-            .limit(1);
+  .inputValidator(LoginSchema)
+  .handler(async ({ data }: { data: { email: string; password: string } }) => {
+    const { email, password } = data;
+    // Implementation for user login logic
+    // 1. Check if user exists
+    const user = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, email))
+      .limit(1);
 
-        if (user.length === 0) {
-            throw new Error("Invalid email or password");
-        }
+    if (user.length === 0) {
+      throw new Error("Invalid email or password");
+    }
 
-        const isMatch = await bcrypt.compare(password, user[0].password);
-        if (!isMatch) {
-            throw new Error("Invalid email or password");
-        }
+    const isMatch = await bcrypt.compare(password, user[0].password);
+    if (!isMatch) {
+      throw new Error("Invalid email or password");
+    }
 
-        // Create session
-        const cookie = await createSession(user[0].id)
+    // Create session
+    const cookie = await createSession(user[0].id);
 
-        return new Response(JSON.stringify(user), {
-        headers: {
-            'Set-Cookie': cookie,
-        },
-        })
+    return new Response(JSON.stringify(user), {
+      headers: {
+        "Set-Cookie": cookie,
+      },
     });
+  });

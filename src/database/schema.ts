@@ -11,11 +11,12 @@ export const users = mysqlTable("users", {
     .default(sql`CURRENT_TIMESTAMP`),
 });
 
-
 export const sessions = mysqlTable("sessions", {
-    id: int("id").primaryKey().autoincrement(),
-    user_id: int("user_id").notNull().references(() => users.id),
-    token: varchar("token", { length: 255 }).notNull().unique(),
-    expires_at: datetime("expires_at").notNull(),
-    createdAt: datetime("created_at").default(sql`CURRENT_TIMESTAMP`),
-})
+  id: int("id").primaryKey().autoincrement(),
+  user_id: int("user_id")
+    .notNull()
+    .references(() => users.id),
+  token: varchar("token", { length: 255 }).notNull().unique(),
+  expires_at: datetime("expires_at").notNull(),
+  createdAt: datetime("created_at").default(sql`CURRENT_TIMESTAMP`),
+});

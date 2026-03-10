@@ -7,7 +7,6 @@ import bcrypt from "bcryptjs";
 import { z } from "zod";
 import type { TUser } from "types/types";
 
-
 const RegisterSchema = z.object({
   name: z.string().min(3, "Name must be at least 3 characters long"),
   email: z.string().email(),

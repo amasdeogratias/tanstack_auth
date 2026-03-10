@@ -1,8 +1,8 @@
 ---
-title: 'Midnight Compass Build'
-description: 'Where to customize theme and typography.'
-pubDate: 'Jul 22 2024'
-heroImage: '/images/lagoon-2.svg'
+title: "Midnight Compass Build"
+description: "Where to customize theme and typography."
+pubDate: "Jul 22 2024"
+heroImage: "/images/lagoon-2.svg"
 ---
 
 Update CSS variables in `src/styles.css` to fit your brand.

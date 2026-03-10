@@ -1,8 +1,8 @@
 ---
-title: 'Static Tide Almanac'
-description: 'Dial in layout polish and image rhythm across cards.'
-pubDate: 'Jul 29 2024'
-heroImage: '/images/lagoon-1.svg'
+title: "Static Tide Almanac"
+description: "Dial in layout polish and image rhythm across cards."
+pubDate: "Jul 29 2024"
+heroImage: "/images/lagoon-1.svg"
 ---
 
 As your app grows, visual rhythm matters as much as feature scope.

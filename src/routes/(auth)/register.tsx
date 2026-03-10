@@ -65,7 +65,7 @@ function RouteComponent() {
               id="name"
               name="name"
               placeholder="John Doe"
-              className="w-full rounded-lg border border-(--line) bg-(--bg) px-4 py-2.5 text-sm outline-none transition focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20"
+              className="w-full rounded-lg border border-(--line) bg-(--bg) px-4 py-2.5 text-sm outline-none transition focus:border-(--primary) focus:ring-2 focus:ring-(--primary)/20"
               onChange={(e) => {
                 e.target.value;
               }}
@@ -107,7 +107,7 @@ function RouteComponent() {
               id="password"
               name="password"
               placeholder="••••••••"
-              className="w-full rounded-lg border border-(--line) bg-(--bg) px-4 py-2.5 text-sm outline-none transition focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20"
+              className="w-full rounded-lg border border-(--line) bg-(--bg) px-4 py-2.5 text-sm outline-none transition focus:border-(--primary) focus:ring-2 focus:ring-(--primary)/20"
               onChange={(e) => {
                 e.target.value;
               }}

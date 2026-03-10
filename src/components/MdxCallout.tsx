@@ -1,11 +1,11 @@
-import type { ReactNode } from 'react'
+import type { ReactNode } from "react";
 
 export function MdxCallout({
   title,
   children,
 }: {
-  title: string
-  children: ReactNode
+  title: string;
+  children: ReactNode;
 }) {
   return (
     <aside className="not-prose my-6 rounded-xl border border-[var(--line)] bg-[var(--chip-bg)] p-4">
@@ -14,5 +14,5 @@ export function MdxCallout({
         {children}
       </div>
     </aside>
-  )
+  );
 }
