@@ -1,8 +1,18 @@
 import { loginUser } from "#/server/loginUser";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Link,
+  redirect,
+  useNavigate,
+} from "@tanstack/react-router";
 import { useState } from "react";
 
 export const Route = createFileRoute("/(auth)/login")({
+  beforeLoad: async ({ context }) => {
+    if (context.user) {
+      throw redirect({ to: "/blog" });
+    }
+  },
   component: RouteComponent,
 });
 
