@@ -20,3 +20,15 @@ export const sessions = mysqlTable("sessions", {
   expires_at: datetime("expires_at").notNull(),
   createdAt: datetime("created_at").default(sql`CURRENT_TIMESTAMP`),
 });
+
+
+export const posts = mysqlTable("posts", {
+  id: int("id").primaryKey().autoincrement(),
+  user_id: int("user_id")
+    .notNull()
+    .references(() => users.id),
+  title: varchar("title", { length: 255 }).notNull(),
+  content: varchar("content", { length: 255 }).notNull(),
+  createdAt: datetime("created_at").default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: datetime("updated_at").default(sql`CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`),
+})
