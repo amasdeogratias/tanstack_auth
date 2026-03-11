@@ -39,7 +39,15 @@ function BlogIndex() {
   return (
     <main className="page-wrap px-4 pb-8 pt-14">
       <section className="mb-4">
-        <p className="island-kicker mb-2">Latest Dispatches</p>
+        <div className="flex items-center gap-2">
+          <p className="island-kicker mb-2">Latest Dispatches</p>
+          <Link
+            className="rounded-md bg-black px-2 py-2 text-white hover:text-white"
+            to="/blog/new"
+          >
+            New Post
+          </Link>
+        </div>
         <h1 className="display-title m-0 text-4xl font-bold tracking-tight text-(--sea-ink) sm:text-5xl">
           Blog
         </h1>
