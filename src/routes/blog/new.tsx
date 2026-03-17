@@ -1,5 +1,13 @@
 import { Category } from "#/database/schema";
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createPost } from "#/server/createPost";
+import {
+  createFileRoute,
+  Link,
+  redirect,
+  useNavigate,
+  useRouteContext,
+} from "@tanstack/react-router";
+import { useState } from "react";
 
 export const Route = createFileRoute("/blog/new")({
   beforeLoad: async ({ context }) => {
@@ -11,6 +19,48 @@ export const Route = createFileRoute("/blog/new")({
 });
 
 function RouteComponent() {
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const title = formData.get("title")?.toString().trim() ?? "";
+    const content = formData.get("content")?.toString().trim() ?? "";
+    const category = formData.get("category")?.toString().trim() ?? "";
+    const imageFile = formData.get("image") as File;
+
+    if (!title || !content || !category || !imageFile) {
+      setError("All fields are required");
+      return;
+    }
+
+    // Handle file upload logic here (e.g., upload to server or cloud storage)
+    // For demonstration, we'll just use a placeholder URL
+    const imageUrl = URL.createObjectURL(imageFile);
+
+    try {
+      const response = await createPost({
+        data: {
+          title,
+          content,
+          category: category as Category,
+          image: imageUrl,
+        },
+      });
+      if (response?.success) {
+        navigate({ to: "/blog" });
+      }
+    } catch (error) {
+      setError(
+        "Failed to create post: " +
+          (error instanceof Error ? error.message : "Unknown error"),
+      );
+    }
+  };
+
   return (
     <div className="page-wrap px-4 pb-8 pt-14 ">
       <section className="mb-4">
@@ -24,6 +74,7 @@ function RouteComponent() {
           </Link>
         </div>
       </section>
+      {error && <p className="text-red-500">{error}</p>}
       <div className="bg-slate-100 flex items-center justify-center rounded-md">
         <div className="py-5">
           <div className="mb-6">
@@ -34,7 +85,7 @@ function RouteComponent() {
               Fill in the details below to publish a new post
             </p>
           </div>
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {/* Title */}
               <div className="space-y-2">
@@ -49,6 +100,9 @@ function RouteComponent() {
                   type="text"
                   id="title"
                   name="title"
+                  onChange={(e) => {
+                    e.target.value;
+                  }}
                   placeholder="Enter post title"
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900"
                 />
@@ -65,6 +119,9 @@ function RouteComponent() {
                 <select
                   name="category"
                   id="category"
+                  onChange={(e) => {
+                    e.target.value;
+                  }}
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900"
                 >
                   <option value="">Select a category</option>
@@ -88,6 +145,9 @@ function RouteComponent() {
                 <textarea
                   name="content"
                   id="content"
+                  onChange={(e) => {
+                    e.target.value;
+                  }}
                   placeholder="Enter post content"
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900"
                 ></textarea>
@@ -106,6 +166,10 @@ function RouteComponent() {
                   type="file"
                   name="image"
                   id="image"
+                  accept="image/*"
+                  onChange={(e) => {
+                    e.target.files;
+                  }}
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900"
                 />
               </div>
