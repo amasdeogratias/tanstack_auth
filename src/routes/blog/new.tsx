@@ -37,18 +37,9 @@ function RouteComponent() {
       return;
     }
 
-    // Handle file upload logic here (e.g., upload to server or cloud storage)
-    // For demonstration, we'll just use a placeholder URL
-    const imageUrl = URL.createObjectURL(imageFile);
-
     try {
       const response = await createPost({
-        data: {
-          title,
-          content,
-          category: category as Category,
-          image: imageUrl,
-        },
+        data: formData,
       });
       if (response?.success) {
         navigate({ to: "/blog" });
@@ -73,101 +64,85 @@ function RouteComponent() {
             All posts
           </Link>
         </div>
-      {error && <p className="text-red-500">{error}</p>}
-      <form className="space-y-6" onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {/* Title */}
-          <div className="space-y-2">
-            <label
-              htmlFor="title"
-            >
-              Title
-            </label>
+        {error && <p className="text-red-500">{error}</p>}
+        <form className="space-y-6" onSubmit={handleSubmit} encType="multipart/form-data">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {/* Title */}
+            <div className="space-y-2">
+              <label htmlFor="title">Title</label>
 
-            <input
-              type="text"
-              id="title"
-              name="title"
-              onChange={(e) => {
-                e.target.value;
-              }}
-              placeholder="Enter post title"
-              className="w-full rounded-lg border border-(--line) bg-(--bg) px-4 py-2.5 text-sm outline-none transition focus:border-(--primary) focus:ring-2 focus:ring-(--primary)/20"
-            />
+              <input
+                type="text"
+                id="title"
+                name="title"
+                onChange={(e) => {
+                  e.target.value;
+                }}
+                placeholder="Enter post title"
+                className="w-full rounded-lg border border-(--line) bg-(--bg) px-4 py-2.5 text-sm outline-none transition focus:border-(--primary) focus:ring-2 focus:ring-(--primary)/20"
+              />
+            </div>
+
+            {/* Category */}
+            <div className="space-y-2">
+              <label htmlFor="category">Category</label>
+              <select
+                name="category"
+                id="category"
+                onChange={(e) => {
+                  e.target.value;
+                }}
+                className="w-full rounded-lg border border-(--line) bg-(--bg) px-4 py-2.5 text-sm outline-none transition focus:border-(--primary) focus:ring-2 focus:ring-(--primary)/20"
+              >
+                <option value="">Select a category</option>
+
+                {Object.values(Category).map((category) => (
+                  <option key={category} value={category}>
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {/* Description */}
+            <div className="space-y-2 col-span-full">
+              <label htmlFor="content">Content</label>
+
+              <textarea
+                name="content"
+                id="content"
+                onChange={(e) => {
+                  e.target.value;
+                }}
+                placeholder="Enter post content"
+                className="w-full px-4 py-2.5 border border-(--line) bg-(--bg) text-sm outline-none transition focus:border-(--primary) focus:ring-2 focus:ring-(--primary)/20"
+              ></textarea>
+            </div>
+
+            {/* Image */}
+            <div className="space-y-2 col-span-full">
+              <label htmlFor="image">File/Image</label>
+
+              <input
+                type="file"
+                name="image"
+                id="image"
+                accept="image/*"
+                onChange={(e) => {
+                  e.target.files;
+                }}
+                className="w-full px-4 py-2.5 border border-(--line) bg-(--bg) text-sm outline-none transition focus:border-(--primary) focus:ring-2 focus:ring-(--primary)/20"
+              />
+            </div>
           </div>
 
-          {/* Category */}
-          <div className="space-y-2">
-            <label
-              htmlFor="category"
-            >
-              Category
-            </label>
-            <select
-              name="category"
-              id="category"
-              onChange={(e) => {
-                e.target.value;
-              }}
-              className="w-full rounded-lg border border-(--line) bg-(--bg) px-4 py-2.5 text-sm outline-none transition focus:border-(--primary) focus:ring-2 focus:ring-(--primary)/20"
-            >
-              <option value="">Select a category</option>
-
-              {Object.values(Category).map((category) => (
-                <option key={category} value={category}>
-                  {category.charAt(0).toUpperCase() + category.slice(1)}
-                </option>
-              ))}
-            </select>
-          </div>
-          {/* Description */}
-          <div className="space-y-2 col-span-full">
-            <label
-              htmlFor="content"
-            >
-              Content
-            </label>
-
-            <textarea
-              name="content"
-              id="content"
-              onChange={(e) => {
-                e.target.value;
-              }}
-              placeholder="Enter post content"
-              className="w-full px-4 py-2.5 border border-(--line) bg-(--bg) text-sm outline-none transition focus:border-(--primary) focus:ring-2 focus:ring-(--primary)/20"
-            ></textarea>
-          </div>
-
-          {/* Image */}
-          <div className="space-y-2 col-span-full">
-            <label
-              htmlFor="image"
-            >
-              File/Image
-            </label>
-
-            <input
-              type="file"
-              name="image"
-              id="image"
-              accept="image/*"
-              onChange={(e) => {
-                e.target.files;
-              }}
-              className="w-full px-4 py-2.5 border border-(--line) bg-(--bg) text-sm outline-none transition focus:border-(--primary) focus:ring-2 focus:ring-(--primary)/20"
-            />
-          </div>
-        </div>
-
-        {/* Submit */}
-        <button
-          type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition"
-        >
-          Create Post
-        </button>
-      </form>
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition"
+          >
+            Create Post
+          </button>
+        </form>
       </section>
     </div>
   );
