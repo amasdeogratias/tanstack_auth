@@ -1,5 +1,5 @@
 import { Category } from "#/database/schema";
-import { createPost } from "#/server/createPost";
+import { createPost } from "#/server/posts/createPost";
 import {
   createFileRoute,
   Link,
