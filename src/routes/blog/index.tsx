@@ -1,6 +1,8 @@
 import { Link, createFileRoute, redirect } from "@tanstack/react-router";
 import { allBlogs } from "content-collections";
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "#/lib/site";
+import { postsQueryOptions } from "#/server/posts/getPost";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 const canonical = `${SITE_URL}/blog`;
 const pageTitle = `Blog | ${SITE_TITLE}`;
@@ -19,6 +21,9 @@ export const Route = createFileRoute("/blog/")({
       { property: "og:image", content: `${SITE_URL}/images/lagoon-1.svg` },
     ],
   }),
+  loader: async ({ context }) => {
+    await context.queryClient.ensureQueryData(postsQueryOptions());
+  },
   component: BlogIndex,
 });
 
@@ -35,7 +40,8 @@ function BlogIndex() {
   );
 
   const featured = postsByDate[0];
-  const posts = postsByDate.slice(1);
+  // const posts = postsByDate.slice(1);
+  const posts = useSuspenseQuery(postsQueryOptions()).data;
   return (
     <main className="page-wrap px-4 pb-8 pt-14">
       <section className="mb-4">
@@ -81,13 +87,13 @@ function BlogIndex() {
 
         {posts.map((post, index) => (
           <article
-            key={post.slug}
+            key={post.id}
             className="island-shell rise-in rounded-2xl p-5 sm:last:col-span-2 lg:last:col-span-1"
             style={{ animationDelay: `${index * 80 + 120}ms` }}
           >
-            {post.heroImage ? (
+            {post.image ? (
               <img
-                src={post.heroImage}
+                src={post.image}
                 alt=""
                 className="mb-4 h-44 w-full rounded-xl object-cover"
               />
@@ -95,17 +101,17 @@ function BlogIndex() {
             <h2 className="m-0 text-2xl font-semibold text-(--sea-ink)">
               <Link
                 to="/blog/$slug"
-                params={{ slug: post.slug }}
+                params={{ slug: post.id.toString() }}
                 className="no-underline"
               >
                 {post.title}
               </Link>
             </h2>
             <p className="mb-2 mt-2 text-sm text-(--sea-ink-soft)">
-              {post.description}
+              {post.content}
             </p>
             <p className="m-0 text-xs text-(--sea-ink-soft)">
-              {new Date(post.pubDate).toLocaleDateString()}
+              {/* {new Date(post.createdAt).toLocaleDateString()} */}
             </p>
           </article>
         ))}
